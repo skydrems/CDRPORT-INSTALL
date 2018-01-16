@@ -19,7 +19,7 @@ func_install_cdr-port () {
 				clear
 				mkdir -p $INSTALL_DIR
 				cd $INSTALL_DIR
-				git clone -b $BRANCH https://github.com/eluizbr/cdr-port.git
+				git clone -b $BRANCH https://github.com/skydrems/CDRPORT-INSTALL.git
 				virtualenv --system-site-packages cdr-port
 				cd cdr-port
 				pip install -r $CONFIG_DIR/install/conf/requirements.txt
@@ -31,7 +31,7 @@ func_install_cdr-port () {
 				cd $INSTALL_DIR/lib/python2.7/site-packages/registration/templates/
 				rm -rf registration/
 
-				wget -c https://github.com/eluizbr/cdr-port/raw/master/install/sql/base.sql.zip -O install/sql/base.sql.zip
+				wget -c https://github.com/skydrems/CDRPORT-INSTALL/raw/master/install/sql/base.sql.zip -O install/sql/base.sql.zip
 				unzip $CONFIG_DIR/install/sql/base.sql.zip  -d $CONFIG_DIR/install/sql/
 				mysql -u root -p"$DB_PASSWORD" cdrport < $CONFIG_DIR/install/sql/base.sql
 				mysql -u root -p"$DB_PASSWORD" cdrport < $CONFIG_DIR/install/sql/rotinas.sql
@@ -45,7 +45,7 @@ func_install_cdr-port () {
 				### Config nginx
 
 				cp $CONFIG_DIR/install/conf/cdrport_nginx.conf /etc/nginx/sites-enabled/cdrport
-				sed -i "s/127.0.0.1/$IPADDR/" /etc/nginx/sites-enabled/cdrport
+				sed -i "s/127.0.0.1:8088/$IPADDR/" /etc/nginx/sites-enabled/cdrport
 				/etc/init.d/nginx restart
 
 				### FIM Config nginx
